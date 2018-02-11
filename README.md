@@ -58,17 +58,12 @@ To edit files, run `gedit`, a graphical editor akin to notepad; `nano`, a simple
 			PASS_MAX_DAYS 90
 			PASS_WARN_AGE 14
 			```
-		1. Add a minimum password length.
+		1. Add a minimum password length, password history, and add complexity requirements.
 			1. Open `/etc/pam.d/common-password` with sudo.
 			1. Add `minlen=8` to the end of the line that has `pam_unix.so` in it.
-		2. Add a password history
-			1. Open `/etc/pam.d/common-password` with sudo.
-			2.Add `remember=5` to the end of the line that has `pam_unix.so` in it.
-		2.Add a minimum password complexity
-			1. Open `/etc/pam.d/common-password`.
-			2. Locate the line that has pam.cracklib.so in it.
-				If you cannot find that line, run sudo apt-get install libpam-cracklib to install cracklib, 				    close the file and open it again with sudo.
-			3.Add `ucredit=-1 lcredit=-1 dcredit=-1 ocredit=-` to the end of the line.
+			1. Add `remember=5` to the end of the line that has `pam_unix.so` in it.
+			1. Locate the line that has pam.cracklib.so in it. If you cannot find that line, install cracklib with `sudo apt-get install libpam-cracklib`.
+			1. Add `ucredit=-1 lcredit=-1 dcredit=-1 ocredit=-` to the end of that line.
 		3. Implement an account lockout policy.
 			1. Open `/etc/pam.d/common-auth`.
 			2. Add `deny=5 unlock_time=1800` to the end of the line with `pam_tally2.so` in it.
